@@ -1,8 +1,17 @@
 const express = require('express')
 const app = express()
 
-app.get('/', (req,res) =>{
-    res.send('Hello World')
+let logger = function(req, res, next){
+  console.log(req)
+    next()  
+}
+
+app.get('/', logger, (req,res) =>{
+    res.json({"Response":"Hello World"})
+})
+
+app.get('/users/:userID/books/:bookID', (req, res) => {
+    res.send(req.params)
 })
 
 app.post('/', (req,res) =>{
